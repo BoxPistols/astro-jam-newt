@@ -13,10 +13,16 @@ export const getStaticPaths = async () => {
   })
   return articles.map((article) => ({
     params: { slug: article.slug },
+    props: { article },
   }))
 }
+
+const { article } = Astro.props
 ---
 
 <Layout title="Article">
-  <main></main>
+  <main>
+    <h2>{article.title}</h2>
+    <article set:html={article.body} />
+  </main>
 </Layout>
