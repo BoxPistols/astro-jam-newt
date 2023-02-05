@@ -9,6 +9,13 @@ export interface Author {
   biography: string
 }
 
+export interface Photo {
+  title: string | null
+  fileName: string | null
+  src: string | null | undefined
+  postPhoto: string | null
+}
+
 export interface Tag {
   name: string
   slug: string
@@ -26,6 +33,18 @@ export interface Article {
   coverImage: { src: string } | null
   author: (Content & Author) | null
   tags: (Content & Tag)[]
+  photo: (Content & Photo)[]
+  articlePhoto: {
+    height: string
+    fileName: string
+  }
+}
+
+export interface Gallery {
+  name: string
+  slug: string
+  body: string
+  photo: { src: string } | null
 }
 
 export const newtClient = createClient({

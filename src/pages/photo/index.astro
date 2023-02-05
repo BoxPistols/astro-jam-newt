@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import { newtClient } from "../../lib/newt"
+import type { Photo } from "../../lib/newt"
+
+const { items: photos } = await newtClient.getContents<Photo>({
+  appUid: "blog",
+  modelUid: "photo",
+  query: {
+    select: ["title", "postPhoto", "fileName"],
+  },
+})
+---
+
+<Layout title="Photos">
+  <main>
+    <ul>
+      {
+        photos.map((photo) => {
+          return (
+            <>
+              <div>{photo.title}</div>
+              <img
+                src={photo.postPhoto ? photo.postPhoto : ""}
+                style={{ maxWidth: "200px" }}
+              />
+            </>
+          )
+        })
+      }
+    </ul>
+  </main>
+</Layout>

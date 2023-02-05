@@ -7,7 +7,7 @@ const { items: articles } = await newtClient.getContents<Article>({
   appUid: "blog",
   modelUid: "article",
   query: {
-    select: ["title", "slug", "body", "coverImage", "tags"],
+    select: ["title", "slug", "body", "coverImage", "tags", "pick", "articlePhoto","fileName", "height"],
   },
 })
 ---
@@ -36,6 +36,9 @@ const { items: articles } = await newtClient.getContents<Article>({
                   {article.title}
                   <br />
                   {article.slug}
+                  <br />
+                  {article.articlePhoto.fileName}
+                  <br />
                 </a>
               </li>
             </>
