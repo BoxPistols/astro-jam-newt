@@ -12,6 +12,10 @@
   },
   "dependencies": {
     "astro": "^2.0.2",
+    "lightbox-react": "^0.3.8",
     "newt-client-js": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27"
   }
 }

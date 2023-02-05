@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import { newtClient } from "../../lib/newt"
+import type { Article } from "../../lib/newt"
+
+export const getStaticPaths = async () => {
+  const { items: articles } = await newtClient.getContents<Article>({
+    appUid: "blog",
+    modelUid: "article",
+    query: {
+      select: [
+        "title",
+        "body",
+        "slug",
+        "coverImage",
+        "tags",
+        "pick",
+        "articlePhoto",
+        "fileName",
+        "height",
+      ],
+    },
+  })
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }))
+}
+const { article } = Astro.props
+---
+
+<Layout title="Article">
+  <main>
+    <h2>{article.title}</h2>
+
+    <a href={"/"}>
+      <p>Home</p>
+    </a>
+    <!-- <div>
+      <img
+        src={article.coverImage ? article.coverImage.src : ""}
+        style={{ maxWidth: "200px" }}
+      />
+    </div> -->
+
+    <!-- <article set:html={article.body} /> -->
+    <!-- <article>{article.body}</article> -->
+
+    <!-- <div>{article.coverImage.fileName}</div>
+    <div>{article.articlePhoto[0].fileName}</div>
+    <div>{article.articlePhoto[1].fileName}</div> -->
+    <div class="article">
+      <div class="images">
+        {article.articlePhoto.map((photo: any) => <img src={photo.src} />)}
+      </div>
+    </div>
+    <!-- <img
+      src={article.articlePhoto ? article.articlePhoto[0].src : ""}
+      style={{ maxWidth: "200px" }}
+    /> -->
+
+    <!-- <div>
+      <img
+        src={article.articlePhoto ? article.articlePhoto.src : ""}
+        style={{ maxWidth: "200px" }}
+      />
+    </div> -->
+
+    <!-- 本文 -->
+    <!-- <article set:html={article.body} /> -->
+    <!-- Photo -->
+  </main>
+</Layout>
+
+<style>
+  img {
+    max-width: 300px;
+    width: auto;
+  }
+  img:hover {
+    opacity: 0.85;
+  }
+  .article .images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+</style>
