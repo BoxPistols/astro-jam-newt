@@ -7,7 +7,7 @@ const { items: articles } = await newtClient.getContents<Article>({
   appUid: "blog",
   modelUid: "article",
   query: {
-    select: ["title", "slug", "body"],
+    select: ["title", "slug", "body", "coverImage", "tags"],
   },
 })
 ---
@@ -18,9 +18,27 @@ const { items: articles } = await newtClient.getContents<Article>({
       {
         articles.map((article) => {
           return (
-            <li>
-              <a href={`/articles/${article.slug}`}>{article.title}</a>
-            </li>
+            <>
+            <!--
+              // <p>
+                //   {article.slug === "article-2" ? article.slug : "not bingo!"}
+                // </p>
+            -->
+
+              <li>
+                <a href={`/articles/${article.slug}`}>
+                  <div>
+                    <img
+                      src={article.coverImage ? article.coverImage.src : ""}
+                      style={{ maxWidth: "200px" }}
+                    />
+                  </div>
+                  {article.title}
+                  <br />
+                  {article.slug}
+                </a>
+              </li>
+            </>
           )
         })
       }

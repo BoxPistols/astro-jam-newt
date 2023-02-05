@@ -1,9 +1,31 @@
-import { createClient } from "newt-client-js"
+import { createClient, Content } from "newt-client-js"
+// import { Author } from "./author"
+// import { Tag } from "./tag"
+
+export interface Author {
+  slug: string
+  fullName: string
+  profileImage: { src: string } | null
+  biography: string
+}
+
+export interface Tag {
+  name: string
+  slug: string
+}
 
 export interface Article {
   title: string
   slug: string
   body: string
+  meta: {
+    title: string
+    description: string
+    ogImage: { src: string } | null
+  }
+  coverImage: { src: string } | null
+  author: (Content & Author) | null
+  tags: (Content & Tag)[]
 }
 
 export const newtClient = createClient({

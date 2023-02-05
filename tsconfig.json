@@ -1,3 +1,10 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    // "importsNotUsedAsValues": "error"
+  }
 }
+/*
+Flag 'importsNotUsedAsValues' is deprecated and will stop functioning in TypeScript 5.5. Specify 'ignoreDeprecations: "5.0"' to silence this error.
+  Use 'verbatimModuleSyntax' instead.t
+  */
